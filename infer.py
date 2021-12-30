@@ -48,14 +48,6 @@ def main(in_files, density, kNN, out_folder, thinFactor, save_txt, ground, other
     '''MODEL LOADING'''
     if(arch == 1):
         model = Pointnet2Backbone(input_feature_dim=160-3).cuda()
-    elif(arch == 2):
-        model = model2(input_feature_dim=160-3).cuda()
-    elif(arch == 3):
-        model = model3(input_feature_dim=160-3).cuda()
-
-    elif(arch == 4):
-        model = model4(input_feature_dim=160-3).cuda()
-    elif(arch == 5):
         model = model5(input_feature_dim=160-3).cuda()   
     files = glob.glob(args.model + "/*.pth")
     print(args.model + "/*.pth")
@@ -105,10 +97,7 @@ def main(in_files, density, kNN, out_folder, thinFactor, save_txt, ground, other
                         # print(points.shape)
                         if(arch == 1):
                             pred_batch = model(points)
-                        elif(arch==2):
-                            pred_batch,_,_ = model(points)
-                        elif(arch==3 or arch==4 or arch==5):
-                            pred_batch , _ , _ , _ , _ = model(points)
+
                             # print(pred_batch.size())
                             # print(wave_.size())
                         # pred_batch = pred_batch.view(-1, args.NUM_CLASSES)
@@ -176,7 +165,7 @@ if __name__ == '__main__':
     parser.add_argument('--density', default=15, type=float, help='average point density')
     parser.add_argument('--kNN', default=200000, type=int, help='how many points per batch [default: 200000]')
     parser.add_argument('--outFolder', required=True, help='where to write output files and statistics to')
-    parser.add_argument('--model', required=True, help='tensorflow model ckpt file')
+    parser.add_argument('--model', required=True, help='trained model ckpt file')
     parser.add_argument('--NUM_CLASSES', default=3, type=int,help='python architecture file')
     parser.add_argument('--thinFactor', default=1., type=float,
                         help='factor to thin out points by (2=use half of the points)')
