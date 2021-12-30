@@ -105,17 +105,7 @@ def main(args):
 
     '''MODEL LOADING'''
     if(args.archFile == "1"):
-        model = model1(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
-    if(args.archFile == "2"):
-        model = model2(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
-    if(args.archFile == "3"):
-        model = model3(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
-    if(args.archFile == "4"):
-        model = model4(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
-    if(args.archFile == "5"):
-        model = model5(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
-    if(args.archFile == "6"):
-        model = model6(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
+        model = Pointnet2Backbone(input_feature_dim=160-3, NUM_CLASSES = args.classes).cuda()
 
     weights = torch.ones(args.classes).cuda()
     if(args.classes==6):
@@ -311,7 +301,7 @@ if __name__ == '__main__':
                         help='normalize fields and coordinates [default: 1][1/0]')
     parser.add_argument('--classes', default=6, type=int,
                         help='normalize fields and coordinates [default: 1][1/0]')
-    parser.add_argument('--batchsize', default=2, type=int,
+    parser.add_argument('--batchsize', default=1, type=int,
                         help='normalize fields and coordinates [default: 1][1/0]')
     # parser.add_argument('--testList', help='list with files to test on')
     parser.add_argument('--gpuID', default=0, help='which GPU to run on (default: CPU only)')
